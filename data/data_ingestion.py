@@ -7,14 +7,23 @@ import click
 import tqdm
 from decouple import config
 
+
 # Elephant DB connection info
+"""
 dbname = config('ESQL_R2_DBNAME')
 user = config('ESQL_R2_USER')
 password = config('ESQL_R2_PASSWORD')
 host = config('ESQL_R2_HOST')
+"""
+
+# AWS DB connection info
+dbname = config('RDS_1_DBNAME')
+user = config('RDS_1_USER')
+password = config('RDS_1_PASSWORD')
+host = config('RDS_1_HOST')
 
 # Google Cloud credentials
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/Users/nickburkhalter/Desktop/Lambda School/Unit 3/SaltyHackers-ef4dd15c271f.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config('GOOGLE_APPLICATION_CREDENTIALS')
 
 def pull_rows(client, dref, table_name, start_index=0, count=40000):
     """

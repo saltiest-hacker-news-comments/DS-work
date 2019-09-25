@@ -5,10 +5,18 @@ from decouple import config
 
 
 # Connection information
+"""
 dbname = config('ESQL_R2_DBNAME')
 user = config('ESQL_R2_USER')
 password = config('ESQL_R2_PASSWORD')
 host = config('ESQL_R2_HOST')
+"""
+
+# AWS DB connection info
+dbname = config('RDS_1_DBNAME')
+user = config('RDS_1_USER')
+password = config('RDS_1_PASSWORD')
+host = config('RDS_1_HOST')
 
 pg_conn = psycopg2.connect(dbname=dbname, user=user,
                            password=password, host=host)
