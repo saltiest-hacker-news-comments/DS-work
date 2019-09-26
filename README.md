@@ -23,7 +23,7 @@ Endpoint: [https://saltines.herokuapp.com/salty-comments](https://saltines.herok
 
 Sample command: `curl https://saltines.herokuapp.com/salty-comments`
 
-Returns: `{"Fuck war, too? Right?":-1.6249, "No":-1.296, ... }
+Returns: `{"Fuck war, too? Right?":-1.6249, "No":-1.296, ... }`
 
 ## 3. Which hours of the day has the saltiest comments
 
