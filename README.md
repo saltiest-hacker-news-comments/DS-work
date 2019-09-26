@@ -47,7 +47,9 @@ Returns: `{"1.0":128,"2.0":124,"3.0":141,"4.0":144,"5.0":158,"6.0":95,"7.0":117}
 
 
 
-![Data Pipeline Flow](Data Pipeline Flow.png)
+![Data Pipeline Flow](Data%20Pipeline%20Flow.png)
+
+
 <!--
 A simple flask app following HN design. Returns the saltiest users, saltiest comments, and saltiness by time.
 ![Screenshots](app_proof.png)
