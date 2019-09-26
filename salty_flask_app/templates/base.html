@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<!--    <link rel="stylesheet" href="https://unpkg.com/picnic"/> -->
+        <link rel="stylesheet" href="https://news.ycombinator.com/news.css?gujhm7klwfNmQBxTEHt8"/>
+        <!-- comment like this - add - {{title}} -->
+	<title>Hacker News Saltines! - {{title}}</title>
+  </head>
+  <body><center>
+	<table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef"><tr><td bgcolor="#BB1334"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px"><tr><td style="width:18px;padding-right:4px"><a href="https://127.0.0.1:5000"><img src="https://emoji.slack-edge.com/T4JUEB3ME/lambdarefresh/fea10b817fbcdace.jpg" width="18" height="18" style="border:1px white solid;"></a></td>
+                <td style="line-height:12pt; height:10px;"><span class="pagetop"><b class="hnname"><a href="news"><font color="white">Salty News</font></a></b>
+		    </span></td><td style="text-align:right;padding-right:4px;"><span class="pagetop">
+                              <a id='me' href="https://lambdaschool.com/"><font color="white">Lambda School</font></a> </span></td>
+              </tr></table></td></tr>
+<tr id="pagespace" title="" style="height:10px"></tr><tr><td><table border="0" cellpadding="0" cellspacing="0" class="itemlist">
+              <tr class='athing' id='21071890'>
+    <h1><a href="/">{{ title }} of Hacker News!</a></h1>
+    {% block content %} 
+    <ul>
+      <li><a href="/salty-users">Saltiest Users!</a></li>
+      <li><a href="/salty-comments">Saltiest Comments!</a></li>
+      <li><a href="/salty-hours">Saltiest Hours of the Day!</a></li>
+      <li><a href="/salty-days">Saltiest Days of the Week!</a></li>
+    </ul>
+    {% endblock content %}
+    </table>
+  </body>
+</html>

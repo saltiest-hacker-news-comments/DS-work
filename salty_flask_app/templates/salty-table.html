@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<!--
+<ul>
+  {% for result in results %}
+  <li>{{ result[0] }} - {{ result[1] }}</li>
+  {% endfor %}
+</ul>
+-->
+
+<table>
+  <tbody>
+    {% for result in results %}
+    <tr><td>{{ result[0] }}</td><td>&nbsp;</td><td>{{ result[1] }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
