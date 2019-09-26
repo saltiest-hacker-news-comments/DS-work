@@ -13,6 +13,7 @@ user = config('ESQL_R2_USER')
 password = config('ESQL_R2_PASSWORD')
 host = config('ESQL_R2_HOST')
 
+
 def create_app():
     """Create and config routes"""
     app = Flask(__name__)
@@ -30,7 +31,7 @@ def create_app():
         salty_comment_query = """SELECT text, score
                                 FROM salt
                                 ORDER BY score asc
-                                LIMIT 100"""
+                                LIMIT 100;"""
         pg_curs.execute(salty_comment_query)
         results = pg_curs.fetchall()
         pg_curs.close()
@@ -56,7 +57,7 @@ def create_app():
 
     def saltiest_hours():
         """Query to get the hours of the day  most salty users.
-        Returns a list of (user, score) tuples. """
+        Returns a list of (hour, comment count) tuples. """
         pg_conn = psycopg2.connect(dbname=dbname, user=user,
                                    password=password, host=host)
         pg_curs = pg_conn.cursor()
@@ -64,7 +65,7 @@ def create_app():
                                 FROM salt
                                 WHERE score < -1.0
                                 GROUP BY hour
-                                ORDER BY hour ASC"""
+                                ORDER BY hour ASC;"""
         pg_curs.execute(salty_hours_query)
         results = pg_curs.fetchall()
         pg_curs.close()
@@ -72,8 +73,8 @@ def create_app():
         return results
 
     def saltiest_days():
-        """Query to get the text of the most salty users.
-        Returns a list of (user, score) tuples. """
+        """Query to get the day of the week and the count of comments scoring less than -1.
+        Returns a list of (day, comment count) tuples. """
         pg_conn = psycopg2.connect(dbname=dbname, user=user,
                                    password=password, host=host)
         pg_curs = pg_conn.cursor()
@@ -81,7 +82,24 @@ def create_app():
                                 FROM salt
                                 WHERE score < -1.0       
                                 GROUP BY day
-                                ORDER BY day ASC"""
+                                ORDER BY day ASC;"""
+        pg_curs.execute(salty_days_query)
+        results = pg_curs.fetchall()
+        pg_curs.close()
+        pg_conn.close()
+        return results
+
+    def user_comments(name="pg"):
+        """Query to get the text of a particular user and their salt scores.
+        Returns a list of (comment, score) tuples. """
+        pg_conn = psycopg2.connect(dbname=dbname, user=user,
+                                   password=password, host=host)
+        pg_curs = pg_conn.cursor()
+        salty_days_query = """SELECT text , score
+                                FROM salt
+                                WHERE author = '""" + name + """'
+                                ORDER BY score
+                                LIMIT 10;"""
         pg_curs.execute(salty_days_query)
         results = pg_curs.fetchall()
         pg_curs.close()
@@ -95,7 +113,7 @@ def create_app():
     @app.route("/salty-users")
     def user_list():
         results = saltiest_users()
-        #return render_template('salty-table.html', title='Saltiest Users', results=results)
+        # return render_template('salty-table.html', title='Saltiest Users', results=results)
         return jsonify(dict(results))
 
     @app.route("/salty-comments")
@@ -112,5 +130,10 @@ def create_app():
     def days_list():
         results = saltiest_days()
         return jsonify(dict(results))
-    
+
+    @app.route("/user-comments/<name>", methods=['GET'])
+    def user_comments_list(name):
+        results = user_comments(name)
+        return jsonify(dict(results))
+
     return app
