@@ -2,7 +2,7 @@
 
 [Data Science Flask App](https://saltines.herokuapp.com/) 
 
-[Build Week App](https://url.to.come)
+[Build Week App](https://fe-work-git-derek-etman-laptop.saltines-saltiesthacker.now.sh/)
 
 The Flask app mimics the design of Hacker News while using the Lambda School color scheme. Currently it provides four JSON endpoints.
 
