@@ -4,13 +4,19 @@ from io import StringIO
 import csv
 import numpy as np
 import os
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "service_account_key_file.json"
+from decouple import config
+from score_update import sentiment_score
+import tqdm
+
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config('GOOGLE_APPLICATION_CREDENTIALS')
 
 client = bigquery.Client()
 hn_dataset_ref = client.dataset('hacker_news', project='bigquery-public-data')
 comment_ref = hn_dataset_ref.table('comments')
 comments = client.get_table(comment_ref)
 
+engine = create_engine('postgres://<user>:<password>@<host>:5432/<dbname>')
 
 def psql_insert_copy(table, conn, keys, data_iter):
     """Uses postgres insert method to convert a dataframe to a csv and
@@ -37,15 +43,15 @@ def psql_insert_copy(table, conn, keys, data_iter):
         cur.copy_expert(sql=sql, file=s_buf)
 
 
-num_rows = 420000
-engine = create_engine(
-    'postgres://user:password@aws_rds_endpoint.amazonaws.com:5432/postgres')
-for n in range(5):
-    """Copy portions of a database num_rows long into another database. Resulting tables 
-    can be UNION'd to create the final table equal to the initial table. """
-    comment_df = client.list_rows(comments, max_results=num_rows, start_index=n *
-                                  num_rows).to_dataframe()
-    comment_df = comment_df.drop(
-        columns=['deleted', 'dead', 'ranking', 'by', 'parent', 'time'])
-    comment_df['salt_rank'] = np.random.ranf(size=len(comment_df))*2-1
-    comment_df.to_sql(f'table_{n:02}', engine, method=psql_insert_copy)
+def rapid_merge(client, ds_ref, table_name='comments', n_rows=30000, range=5):
+    """
+    Copy portions of a database num_rows long into another database. Resulting tables 
+    can be UNION'd to create the final table equal to the initial table. 
+    """
+    for n in tqdm.tqdm(range):
+        df = client.list_rows(table_name,
+                              max_results=n_rows, 
+                              start_index=n * n_rows).to_dataframe()
+
+        df['score'] = df['text'].apply(sentiment_score)
+        df.to_sql(f'table_{n:02}', engine, method=psql_insert_copy)
