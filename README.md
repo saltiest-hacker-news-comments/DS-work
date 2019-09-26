@@ -4,7 +4,7 @@
 
 [Build Week App](https://fe-work-git-derek-etman-laptop.saltines-saltiesthacker.now.sh/)
 
-The Flask app mimics the design of Hacker News while using the Lambda School color scheme. Currently it provides four JSON endpoints.
+The Flask app mimics the design of Hacker News while using the Lambda School color scheme. Currently it provides five JSON endpoints.
 
 ## 1. Top 100 Salty Users
 Returns a dict of the 100 users with the highest average salt scores.
@@ -45,6 +45,15 @@ Sample command: `curl https://saltines.herokuapp.com/salty-days`
 
 Returns: `{"1.0":128,"2.0":124,"3.0":141,"4.0":144,"5.0":158,"6.0":95,"7.0":117}`
 
+## 5. Top 10 saltiest comments of a user
+
+Returns a dict of comments and scores of a given user
+
+Endpoint: [https://saltines.herokuapp.com/user-comments/(username)](https://saltines.herokuapp.com/user-comments/(name))
+
+Sample command: `curl https://saltines.herokuapp.com/user-comments/patio11`
+
+Returns: `{"* What justifies the laws that compelled my parents to send me to a place they knew (at some level) was hurting me? Benign paternalism which says \"X% of students really dislike the experience of attending school.  The average case for dropouts is 'totally $&#38;$#ed.'  We'll institutionalize them now because it is a darn sight cheaper than institutionalizing them later, permanently.\"":-0.731 ... }
 
 
 ![Data Pipeline Flow](Data%20Pipeline%20Flow.png)
