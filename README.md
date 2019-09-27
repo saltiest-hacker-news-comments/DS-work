@@ -53,7 +53,7 @@ Endpoint: [https://saltines.herokuapp.com/user-comments/(username)](https://salt
 
 Sample command: `curl https://saltines.herokuapp.com/user-comments/patio11`
 
-Returns: `{"* What justifies the laws that compelled my parents to send me to a place they knew (at some level) was hurting me? Benign paternalism which says \"X% of students really dislike the experience of attending school.  The average case for dropouts is 'totally $&#38;$#ed.'  We'll institutionalize them now because it is a darn sight cheaper than institutionalizing them later, permanently.\"":-0.731 ... }
+Returns: `{"* What justifies the laws that compelled my parents to send me to a place they knew (at some level) was hurting me? Benign paternalism which says \"X% of students really dislike the experience of attending school.  The average case for dropouts is 'totally $&#38;$#ed.'  We'll institutionalize them now because it is a darn sight cheaper than institutionalizing them later, permanently.\"":-0.731 ... }`
 
 
 ![Data Pipeline Flow](Data%20Pipeline%20Flow.png)
